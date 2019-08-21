@@ -17,12 +17,16 @@ function cambiarLimiteDeExtraccion() {
 
 }
 
-function extraerDinero() {
-
+function extraerDinero(extraccion) {
+    saldoCuenta += extraccion;
 }
 
 function depositarDinero() {
-
+    let deposito = parseInt(prompt('Ingresa el monto a depositar: '))
+    let saldoAnterior = saldoCuenta;
+    let saldoActual = saldoCuenta += deposito;
+    alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual)
+    actualizarSaldoEnPantalla();
 }
 
 function pagarServicio() {
