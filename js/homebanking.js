@@ -1,5 +1,9 @@
 //Declaración de variables
 
+let nombreUsuario = 'Leticia Berardo';
+let saldoCuenta = 10000;
+let limiteExtraccion = 300;
+
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function() {
     cargarNombreEnPantalla();
