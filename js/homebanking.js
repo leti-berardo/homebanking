@@ -14,19 +14,28 @@ window.onload = function() {
 
 //Funciones que tenes que completar
 function cambiarLimiteDeExtraccion() {
+    limiteExtraccion = parseInt(prompt('Ingresa el nuevo limite de extraccion:'));
+    actualizarLimiteEnPantalla();
+    alert('El nuevo limite de extraccion es $' + limiteExtraccion);
 
 }
 
-function extraerDinero(extraccion) {
-    saldoCuenta += extraccion;
+function extraerDinero() {
+    let extraccion = parseInt(prompt('Ingresa el monto que quieras extraer: '));
+    let saldoAnterior = saldoCuenta;
+    let saldoActual = saldoCuenta -= extraccion;
+    actualizarSaldoEnPantalla();
+    alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+    
 }
 
 function depositarDinero() {
-    let deposito = parseInt(prompt('Ingresa el monto a depositar: '))
+    let deposito = parseInt(prompt('Ingresa el monto a depositar: '));
     let saldoAnterior = saldoCuenta;
     let saldoActual = saldoCuenta += deposito;
-    alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual)
     actualizarSaldoEnPantalla();
+    alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+    
 }
 
 function pagarServicio() {
