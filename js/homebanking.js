@@ -1,3 +1,4 @@
+/*jshint esversion: 6 */
 //Declaración de variables
 
 let nombreUsuario = 'Leticia Berardo';
@@ -5,7 +6,7 @@ let saldoCuenta = 10000;
 let limiteExtraccion = 300;
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
-window.onload = function() {
+window.onload = function () {
     cargarNombreEnPantalla();
     actualizarSaldoEnPantalla();
     actualizarLimiteEnPantalla();
@@ -15,24 +16,25 @@ window.onload = function() {
 //Funciones que tenes que completar
 function cambiarLimiteDeExtraccion() {
     limiteExtraccion = parseInt(prompt('Ingresa el nuevo limite de extraccion:'));
+    if (isNaN(limiteExtraccion)) {
+        return;
+    }
     actualizarLimiteEnPantalla();
     alert('El nuevo limite de extraccion es $' + limiteExtraccion);
 
 }
 
 function extraerDinero() {
-    let extraccion = prompt('Ingresa el monto que quieras extraer: ');
-    console.log(extraccion);
-    if(extraccion == null) {
+    let extraccion = parseInt(prompt('Ingresa el monto que quieras extraer: '));
+    if (isNaN(extraccion)) {
         return;
     }
-    extraccion = parseInt(extraccion);
-    while((extraccion > limiteExtraccion) || (extraccion > saldoCuenta) || (extraccion%100 !== 0)) {
+    while ((extraccion > limiteExtraccion) || (extraccion > saldoCuenta) || (extraccion % 100 !== 0)) {
         let infoText = 'El monto supera el limite de extraccion, intenta nuevamente.';
         if (extraccion > saldoCuenta) {
             infoText = 'No hay saldo disponible en tu cuenta para extraer esa cantidad de dinero, intenta nuevamente.';
         }
-        else if (extraccion % 100 !== 0){
+        else if (extraccion % 100 !== 0) {
             infoText = 'El cajero solo entrega billetes de $100. Por favor ingrese un monto valido: ';
         }
         extraccion = parseInt(prompt(infoText));
@@ -41,16 +43,19 @@ function extraerDinero() {
     let saldoActual = saldoCuenta -= extraccion;
     actualizarSaldoEnPantalla();
     alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
-    
+
 }
 
 function depositarDinero() {
     let deposito = parseInt(prompt('Ingresa el monto a depositar: '));
+    if (isNaN(extraccion)) {
+        return;
+    }
     let saldoAnterior = saldoCuenta;
     let saldoActual = saldoCuenta += deposito;
     actualizarSaldoEnPantalla();
     alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
-    
+
 }
 
 function pagarServicio() {
