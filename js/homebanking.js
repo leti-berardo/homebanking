@@ -9,7 +9,7 @@ window.onload = function() {
     cargarNombreEnPantalla();
     actualizarSaldoEnPantalla();
     actualizarLimiteEnPantalla();
-}
+};
 
 
 //Funciones que tenes que completar
@@ -33,7 +33,7 @@ function extraerDinero() {
             infoText = 'No hay saldo disponible en tu cuenta para extraer esa cantidad de dinero, intenta nuevamente.';
         }
         else if (extraccion % 100 !== 0){
-            infoText = 'El cajero solo entrega billetes de $100. Por favor ingrese un monto valido: '
+            infoText = 'El cajero solo entrega billetes de $100. Por favor ingrese un monto valido: ';
         }
         extraccion = parseInt(prompt(infoText));
     }
