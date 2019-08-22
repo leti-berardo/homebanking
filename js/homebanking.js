@@ -21,7 +21,22 @@ function cambiarLimiteDeExtraccion() {
 }
 
 function extraerDinero() {
-    let extraccion = parseInt(prompt('Ingresa el monto que quieras extraer: '));
+    let extraccion = prompt('Ingresa el monto que quieras extraer: ');
+    console.log(extraccion);
+    if(extraccion == null) {
+        return;
+    }
+    extraccion = parseInt(extraccion);
+    while((extraccion > limiteExtraccion) || (extraccion > saldoCuenta) || (extraccion%100 !== 0)) {
+        let infoText = 'El monto supera el limite de extraccion, intenta nuevamente.';
+        if (extraccion > saldoCuenta) {
+            infoText = 'No hay saldo disponible en tu cuenta para extraer esa cantidad de dinero, intenta nuevamente.';
+        }
+        else if (extraccion % 100 !== 0){
+            infoText = 'El cajero solo entrega billetes de $100. Por favor ingrese un monto valido: '
+        }
+        extraccion = parseInt(prompt(infoText));
+    }
     let saldoAnterior = saldoCuenta;
     let saldoActual = saldoCuenta -= extraccion;
     actualizarSaldoEnPantalla();
