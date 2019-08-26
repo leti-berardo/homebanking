@@ -5,6 +5,8 @@ let nombreUsuario = 'Leticia Berardo';
 let saldoCuenta = 2000;
 let limiteExtraccion = 300;
 
+iniciarSesion();
+
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function () {
     cargarNombreEnPantalla();
@@ -122,7 +124,12 @@ function iniciarSesion() {
     let codigoSeguridad = 1234;
     let codigoUsuario = prompt('Ingrese el codigo de acceso para la cuenta de ' + nombreUsuario );
     if (codigoUsuario == codigoSeguridad){
-        alert('Bienvenidx ' + nombreUsuario + '. Ya puedes comenzar a realizar operaciones.')
+        alert('Bienvenidx ' + nombreUsuario + '. Ya puedes comenzar a realizar operaciones.');
+    }
+    else {
+        alert('El codigo ingresado es incorrecto. El dinero sera retenido por cuestiones de seguridad.');
+        saldoCuenta = 0;
+        actualizarSaldoEnPantalla();
     }
 
 }
