@@ -27,7 +27,7 @@ function cambiarLimiteDeExtraccion() {
 function extraerDinero() {
     let infoText = false;
     let extraccion = prompt('Ingresa el monto que quieras extraer: ');
-     // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
+    // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
     if (esUnNumero(parseInt(extraccion))) {
         extraccion = parseInt(extraccion);
         if (extraccion > limiteExtraccion) {
@@ -111,6 +111,7 @@ function transferirDinero() {
     let cuentaAmiga1 = 1234567;
     let cuentaAmiga2 = 7654321;
     let montoATransfeir = prompt('Ingrese el monto que desea transferir.');
+    // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
     if (esUnNumero(parseInt(montoATransfeir))) {
         montoATransfeir = parseInt(montoATransfeir);
         if (saldoSuficiente(montoATransfeir)) {
@@ -120,7 +121,7 @@ function transferirDinero() {
                     let saldoAnterior = saldoCuenta;
                     let saldoActual = saldoCuenta -= montoATransfeir;
                     actualizarSaldoEnPantalla();
-                    alert('Has realizado una transferencia por $' + montoATransfeir + '\nCuenta amiga numero: '+ cuentaATransferir + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+                    alert('Has realizado una transferencia por $' + montoATransfeir + '\nCuenta amiga numero: ' + cuentaATransferir + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
                 }
                 else {
                     alert('El codigo que ingresaste no corresponde a ninguna Cuenta Amiga.');
@@ -141,8 +142,8 @@ function transferirDinero() {
 
 function iniciarSesion() {
     let codigoSeguridad = 1234;
-    let codigoUsuario = prompt('Ingrese el codigo de acceso para la cuenta de ' + nombreUsuario );
-    if (codigoUsuario == codigoSeguridad){
+    let codigoUsuario = prompt('Ingrese el codigo de acceso para la cuenta de ' + nombreUsuario);
+    if (codigoUsuario == codigoSeguridad) {
         alert('Bienvenidx ' + nombreUsuario + '. Ya puedes comenzar a realizar operaciones.');
     }
     else {
