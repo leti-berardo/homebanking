@@ -17,11 +17,19 @@ window.onload = function () {
 
 //Funciones que tenes que completar
 function cambiarLimiteDeExtraccion() {
-    limiteExtraccion = parseInt(prompt('Ingresa el nuevo limite de extraccion:'));
-
-    actualizarLimiteEnPantalla();
-    alert('El nuevo limite de extraccion es $' + limiteExtraccion);
-
+    limiteExtraccion = prompt('Ingresa el nuevo limite de extraccion:');
+    if (esUnNumero(parseInt(limiteExtraccion))){
+        limiteExtraccion = parseInt(limiteExtraccion);
+        actualizarLimiteEnPantalla();
+        alert('El nuevo limite de extraccion es $' + limiteExtraccion);
+    }
+    else if (extraccion == null) {
+        return;
+    }
+    else {
+        alert('El valor ingresado no es valido');
+        return;
+    }
 }
 
 function extraerDinero() {
