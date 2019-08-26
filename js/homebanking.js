@@ -26,8 +26,10 @@ function cambiarLimiteDeExtraccion() {
 
 function extraerDinero() {
     let infoText = false;
-    let extraccion = parseInt(prompt('Ingresa el monto que quieras extraer: '));
-    if (esUnNumero(extraccion)) {
+    let extraccion = prompt('Ingresa el monto que quieras extraer: ');
+     // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
+    if (esUnNumero(parseInt(extraccion))) {
+        extraccion = parseInt(extraccion);
         if (extraccion > limiteExtraccion) {
             infoText = 'El monto supera el limite de extraccion, intenta nuevamente.';
             alert(infoText);
@@ -47,21 +49,30 @@ function extraerDinero() {
             alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
         }
     }
+    else if (extraccion == null) {
+        return;
+    }
     else {
+        alert('El valor ingresado no es valido');
         return;
     }
 }
 
 function depositarDinero() {
-    let deposito = parseInt(prompt('Ingresa el monto a depositar: '));
-    if (esUnNumero(deposito)) {
+    let deposito = prompt('Ingresa el monto a depositar: ');
+    // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
+    if (esUnNumero(parseInt(deposito))) {
+        deposito = parseInt(deposito);
         let saldoAnterior = saldoCuenta;
         let saldoActual = saldoCuenta += deposito;
         actualizarSaldoEnPantalla();
         alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
     }
+    else if (deposito == null) {
+        return;
+    }
     else {
-        alert('El monto ingresado no es valido');
+        alert('El valor ingresado no es valido');
         return;
     }
 }
@@ -99,8 +110,9 @@ function pagarServicio() {
 function transferirDinero() {
     let cuentaAmiga1 = 1234567;
     let cuentaAmiga2 = 7654321;
-    let montoATransfeir = parseInt(prompt('Ingrese el monto que desea transferir.'));
-    if (esUnNumero(montoATransfeir)) {
+    let montoATransfeir = prompt('Ingrese el monto que desea transferir.');
+    if (esUnNumero(parseInt(montoATransfeir))) {
+        montoATransfeir = parseInt(montoATransfeir);
         if (saldoSuficiente(montoATransfeir)) {
             let cuentaATransferir = parseInt(prompt('Ingrese el Numero de la cuenta a la que desea transferirle dinero.'));
             if (esUnNumero(cuentaATransferir)) {
@@ -116,6 +128,13 @@ function transferirDinero() {
             }
 
         }
+    }
+    else if (montoATransfeir == null) {
+        return;
+    }
+    else {
+        alert('El valor ingresado no es valido');
+        return;
     }
 }
 
