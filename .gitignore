@@ -1,4 +1,5 @@
 #ignore the space of work
 *.code-workspace
 
+#ignore the zip file
 *.zip
