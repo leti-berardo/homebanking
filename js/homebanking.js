@@ -198,6 +198,7 @@ function esUnNumero(data) {
 
 function esNegativo(data) {
     if (Math.sign(data) === -1) {
+        alert('El valor ingresado no es valido.')
         return true;
     }
     return false;
