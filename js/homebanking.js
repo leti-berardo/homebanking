@@ -61,9 +61,9 @@ function extraerDinero() {
             }
             else {
                 let saldoAnterior = saldoCuenta;
-                let saldoActual = restarDinero(extraccion);
+                saldoCuenta = restarDinero(extraccion);
                 actualizarSaldoEnPantalla();
-                alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+                alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoCuenta);
             }
         }
     }
@@ -86,9 +86,9 @@ function depositarDinero() {
         }
         else {
             let saldoAnterior = saldoCuenta;
-            let saldoActual = sumarDinero(deposito);
+            saldoCuenta = sumarDinero(deposito);
             actualizarSaldoEnPantalla();
-            alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+            alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoCuenta);
         }
     }
     else if (deposito == null) {
@@ -146,9 +146,9 @@ function transferirDinero() {
                 if (esUnNumero(cuentaATransferir)) {
                     if ((cuentaATransferir == cuentaAmiga1) || (cuentaATransferir == cuentaAmiga2)) {
                         let saldoAnterior = saldoCuenta;
-                        let saldoActual = restarDinero(montoATransfeir);
+                        saldoCuenta = restarDinero(montoATransfeir);
                         actualizarSaldoEnPantalla();
-                        alert('Has realizado una transferencia por $' + montoATransfeir + '\nCuenta amiga numero: ' + cuentaATransferir + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+                        alert('Has realizado una transferencia por $' + montoATransfeir + '\nCuenta amiga numero: ' + cuentaATransferir + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoCuenta);
                     }
                     else {
                         alert('El codigo que ingresaste no corresponde a ninguna Cuenta Amiga.');
@@ -206,10 +206,12 @@ function esNegativo(data) {
 
 function restarDinero(data) {
     saldoCuenta -= data;
+    return saldoCuenta;
 }
 
 function sumarDinero(data) {
     saldoCuenta += data;
+    return saldoCuenta;
 }
 
 
