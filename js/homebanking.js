@@ -5,10 +5,10 @@ let nombreUsuario = 'Leticia Berardo';
 let saldoCuenta = 2000;
 let limiteExtraccion = 300;
 
-iniciarSesion();
 
 //Ejecución de las funciones que actualizan los valores de las variables en el HTML.
 window.onload = function () {
+    iniciarSesion();
     cargarNombreEnPantalla();
     actualizarSaldoEnPantalla();
     actualizarLimiteEnPantalla();
@@ -18,10 +18,15 @@ window.onload = function () {
 //Funciones que tenes que completar
 function cambiarLimiteDeExtraccion() {
     limiteExtraccion = prompt('Ingresa el nuevo limite de extraccion:');
-    if (esUnNumero(parseInt(limiteExtraccion))){
-        limiteExtraccion = parseInt(limiteExtraccion);
-        actualizarLimiteEnPantalla();
-        alert('El nuevo limite de extraccion es $' + limiteExtraccion);
+    if (esUnNumero(parseInt(limiteExtraccion))) {
+        if (esNegativo(limiteExtraccion)) {
+            return;
+        }
+        else {
+            limiteExtraccion = parseInt(limiteExtraccion);
+            actualizarLimiteEnPantalla();
+            alert('El nuevo limite de extraccion es $' + limiteExtraccion);
+        }
     }
     else if (extraccion == null) {
         return;
@@ -38,23 +43,28 @@ function extraerDinero() {
     // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
     if (esUnNumero(parseInt(extraccion))) {
         extraccion = parseInt(extraccion);
-        if (extraccion > limiteExtraccion) {
-            infoText = 'El monto supera el limite de extraccion, intenta nuevamente.';
-            alert(infoText);
-        }
-        else if (extraccion > saldoCuenta) {
-            infoText = 'No hay saldo disponible en tu cuenta para extraer esa cantidad de dinero, intenta nuevamente.';
-            alert(infoText);
-        }
-        else if (extraccion % 100 !== 0) {
-            infoText = 'El cajero solo entrega billetes de $100. Por favor ingrese un monto valido: ';
-            alert(infoText);
+        if (esNegativo(extraccion)) {
+            return;
         }
         else {
-            let saldoAnterior = saldoCuenta;
-            let saldoActual = saldoCuenta -= extraccion;
-            actualizarSaldoEnPantalla();
-            alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+            if (extraccion > limiteExtraccion) {
+                infoText = 'El monto supera el limite de extraccion, intenta nuevamente.';
+                alert(infoText);
+            }
+            else if (extraccion > saldoCuenta) {
+                infoText = 'No hay saldo disponible en tu cuenta para extraer esa cantidad de dinero, intenta nuevamente.';
+                alert(infoText);
+            }
+            else if (extraccion % 100 !== 0) {
+                infoText = 'El cajero solo entrega billetes de $100. Por favor ingrese un monto valido: ';
+                alert(infoText);
+            }
+            else {
+                let saldoAnterior = saldoCuenta;
+                let saldoActual = restarDinero(extraccion);
+                actualizarSaldoEnPantalla();
+                alert('Has retirado: $' + extraccion + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+            }
         }
     }
     else if (extraccion == null) {
@@ -71,10 +81,15 @@ function depositarDinero() {
     // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
     if (esUnNumero(parseInt(deposito))) {
         deposito = parseInt(deposito);
-        let saldoAnterior = saldoCuenta;
-        let saldoActual = saldoCuenta += deposito;
-        actualizarSaldoEnPantalla();
-        alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+        if (esNegativo(deposito)) {
+            return;
+        }
+        else {
+            let saldoAnterior = saldoCuenta;
+            let saldoActual = sumarDinero(deposito);
+            actualizarSaldoEnPantalla();
+            alert('Has depositado: $' + deposito + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+        }
     }
     else if (deposito == null) {
         return;
@@ -108,7 +123,7 @@ function pagarServicio() {
     if (servicioAPagar) {
         let dineroDisponible = saldoSuficiente(servicioAPagar);
         if (dineroDisponible) {
-            saldoCuenta -= servicioAPagar;
+            restarDinero(servicioAPagar);
             alert('El servicio ha sido abonado con exito. Se debitaron de su cuenta $' + servicioAPagar);
             actualizarSaldoEnPantalla();
         }
@@ -122,20 +137,25 @@ function transferirDinero() {
     // Hago el ParseInt despues para poder obtener el valor null en caso de que el usuario apriete cancelar.
     if (esUnNumero(parseInt(montoATransfeir))) {
         montoATransfeir = parseInt(montoATransfeir);
-        if (saldoSuficiente(montoATransfeir)) {
-            let cuentaATransferir = parseInt(prompt('Ingrese el Numero de la cuenta a la que desea transferirle dinero.'));
-            if (esUnNumero(cuentaATransferir)) {
-                if ((cuentaATransferir == cuentaAmiga1) || (cuentaATransferir == cuentaAmiga2)) {
-                    let saldoAnterior = saldoCuenta;
-                    let saldoActual = saldoCuenta -= montoATransfeir;
-                    actualizarSaldoEnPantalla();
-                    alert('Has realizado una transferencia por $' + montoATransfeir + '\nCuenta amiga numero: ' + cuentaATransferir + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+        if (esNegativo(montoATransfeir)) {
+            return;
+        }
+        else {
+            if (saldoSuficiente(montoATransfeir)) {
+                let cuentaATransferir = parseInt(prompt('Ingrese el Numero de la cuenta a la que desea transferirle dinero.'));
+                if (esUnNumero(cuentaATransferir)) {
+                    if ((cuentaATransferir == cuentaAmiga1) || (cuentaATransferir == cuentaAmiga2)) {
+                        let saldoAnterior = saldoCuenta;
+                        let saldoActual = restarDinero(montoATransfeir);
+                        actualizarSaldoEnPantalla();
+                        alert('Has realizado una transferencia por $' + montoATransfeir + '\nCuenta amiga numero: ' + cuentaATransferir + '\nSaldo Anterior: $' + saldoAnterior + '\nSaldo actual: $' + saldoActual);
+                    }
+                    else {
+                        alert('El codigo que ingresaste no corresponde a ninguna Cuenta Amiga.');
+                    }
                 }
-                else {
-                    alert('El codigo que ingresaste no corresponde a ninguna Cuenta Amiga.');
-                }
-            }
 
+            }
         }
     }
     else if (montoATransfeir == null) {
@@ -146,7 +166,6 @@ function transferirDinero() {
         return;
     }
 }
-
 
 function iniciarSesion() {
     let codigoSeguridad = 1234;
@@ -176,6 +195,22 @@ function esUnNumero(data) {
     }
     return true;
 }
+
+function esNegativo(data) {
+    if (Math.sign(data) === -1) {
+        return true;
+    }
+    return false;
+}
+
+function restarDinero(data) {
+    saldoCuenta -= data;
+}
+
+function sumarDinero(data) {
+    saldoCuenta += data;
+}
+
 
 //Funciones que actualizan el valor de las variables en el HTML
 function cargarNombreEnPantalla() {
